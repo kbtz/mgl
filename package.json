@@ -1,0 +1,20 @@
+{
+	"name": "mgl",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "vite",
+		"build-data": "./fetch-data"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"earcut": "^2.2.4",
+		"topojson-client": "^3.1.0",
+		"vite": "^2.9.14"
+	},
+	"devDependencies": {
+		"@types/topojson-client": "^3.1.1"
+	}
+}
