@@ -1,17 +1,12 @@
-import '@kbtz/hax/maps'
-import '@kbtz/hax/time'
-import '@kbtz/hax/merge'
-import '@kbtz/hax/dom'
-
-import { feature } from 'topojson-client'
+import '@kbtz/hax/full'
 import { WGL } from '@kbtz/wgl'
 
-export { feature, WGL }
+export { WGL }
 
-window[ͼ] = {
-	next: requestAnimationFrame,
+Object.assign(window, {
 	now: performance.now.bind(performance),
-}
+	next: requestAnimationFrame
+})
 
 declare global {
 	const now: typeof performance.now

@@ -32,7 +32,7 @@ function draw() {
 		return draw.after(.3)
 
 	const delta = now() - last
-	if (delta > 1000 / 30) {
+	if (delta > 1000 / 3) {
 		last += delta
 		grid.uniforms.T = last
 		grid.uniforms.F = ++frame
