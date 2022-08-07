@@ -4,7 +4,6 @@
 	"description": "TBD",
 	"license": "Unlicense",
 	"dependencies": {
-		"earcut": "^2.2.4",
 		"vite": "^3.0.4"
 	}
 }
