@@ -1,5 +1,5 @@
-import '@kbtz/hax/full'
-import { WGL } from '@kbtz/wgl'
+import './hax/full'
+import { WGL } from './wgl'
 
 export { WGL }
 

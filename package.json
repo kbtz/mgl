@@ -1,9 +1,0 @@
-{
-	"name": "mgl",
-	"version": "0.1.0",
-	"description": "TBD",
-	"license": "Unlicense",
-	"dependencies": {
-		"vite": "^3.0.4"
-	}
-}

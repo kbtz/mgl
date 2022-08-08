@@ -1,8 +1,5 @@
-import { vite } from '@kbtz/vue'
-import { UserConfigExport as C } from 'vite'
+import { vite } from './lib/kdv'
+import { UserConfigExport as C } from './lib/vite'
 
-const config: C = {
-
-}
-
-export default vite('mgl', config)
+export default vite('mgl', <C>{
+})

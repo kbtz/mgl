@@ -1,7 +1,7 @@
 import { WGL } from 'lib'
 
-import glsl from '+sample.glsl?raw'
-import data from '+map-data-demo.json'
+import glsl from '~sample.glsl?raw'
+//import data from '~map-data-demo.json'
 
 const
 	host = select('canvas')!,

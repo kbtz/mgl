@@ -1,17 +1,1 @@
-{
-	"extends": "./run/lib/vue/tsconfig.json",
-	"compilerOptions": {
-		"baseUrl": "./",
-		"paths": {
-			"lib": [
-				"./lib/index.ts"
-			],
-			"+*": [
-				"res/*"
-			],
-		}
-	},
-	"include": [
-		"src/**/*.ts"
-	]
-}
+lib/kdv/tsconf.json
