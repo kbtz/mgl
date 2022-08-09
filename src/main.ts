@@ -1,5 +1,4 @@
-import { WGL } from 'lib'
-
+import { WGL } from './util'
 import glsl from '~sample.glsl?raw'
 //import data from '~map-data-demo.json'
 
