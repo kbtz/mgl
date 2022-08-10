@@ -1,5 +1,5 @@
-import { vite } from './lib/kdv'
-import { UserConfigExport as C } from './lib/vite'
+import conf from '../web/vite'
 
-export default vite('mgl', <C>{
+export default conf('mgl', {
+
 })

@@ -1,10 +1,9 @@
 import { WGL } from './util'
-import glsl from '~sample.glsl?raw'
-//import data from '~map-data-demo.json'
 
 const
 	host = select('canvas')!,
 	wglc = new WGL(host),
+	glsl = '', // TODO hax/net
 	{ grid } = wglc.parse(glsl)
 
 let frame = 0, last = now(), paused = false
