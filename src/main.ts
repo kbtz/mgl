@@ -3,7 +3,7 @@ import { WGL } from './util'
 const
 	host = select('canvas')!,
 	wglc = new WGL(host),
-	glsl = 'ouoeu',//await net('sample.glsl'), // TODO hax/net
+	glsl = await fetchText('sample.glsl'),
 	{ grid } = wglc.parse(glsl)
 
 let frame = 0, last = now(), paused = false
@@ -30,7 +30,7 @@ function draw() {
 		return draw.after(.3)
 
 	const delta = now() - last
-	if (delta > 1000 / 3) {
+	if (delta > 1000 / 30) {
 		last += delta
 		grid.uniforms.T = last
 		grid.uniforms.F = ++frame
@@ -41,8 +41,7 @@ function draw() {
 }
 
 function fps() {
-	//console.debug(frame)
-	//window[ͼ] = { fps: frame }
+	document.title = frame.toString()
 	frame = 0
 }
 
@@ -51,4 +50,3 @@ trigger('resize')
 wglc.quad()
 next(draw)
 fps.every(1)
-
