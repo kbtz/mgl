@@ -3,7 +3,7 @@ import { WGL } from './util'
 const
 	host = select('canvas')!,
 	wglc = new WGL(host),
-	glsl = '', // TODO hax/net
+	glsl = 'ouoeu',//await net('sample.glsl'), // TODO hax/net
 	{ grid } = wglc.parse(glsl)
 
 let frame = 0, last = now(), paused = false
