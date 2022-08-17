@@ -1,12 +1,20 @@
-import { WGL } from './util'
+import '@topojson-client'
+import { meshArcs } from '#topojson-client'
+console.log(meshArcs)
+
+import 'mgl/util'
+import WGL from 'wgl'
 
 const
 	host = select('canvas')!,
 	wglc = new WGL(host),
 	glsl = await fetchText('sample.glsl'),
-	{ grid } = wglc.parse(glsl)
+	{ grid } = wglc.programs(glsl)
 
-let frame = 0, last = now(), paused = false
+let
+	paused = false,
+	last = now(),
+	frame = 0
 
 each({
 	//mousemove: () => { },

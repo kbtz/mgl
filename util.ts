@@ -1,5 +1,4 @@
 import 'hax/full'
-export { WGL } from 'wgl'
 
 Object.assign(window, {
 	now: performance.now.bind(performance),
