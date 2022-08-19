@@ -1,22 +1,26 @@
-import '@topojson-client'
-import { meshArcs } from '#topojson-client'
-console.log(meshArcs)
-
 import 'mgl/util'
-import WGL from 'wgl'
+import 'npm/vite-tsconfig-paths'
+import { WGL } from 'wgl'
+
+//import { feature, patterson } from 'geo'
+//console.log(feature)
+//debugger
+
 
 const
-	host = select('canvas')!,
-	wglc = new WGL(host),
-	glsl = await fetchText('sample.glsl'),
-	{ grid } = wglc.programs(glsl)
+	el = select('canvas')!,
+	gl = new WGL(el),
+	sl = await fetchText('sample.glsl'),
+	gd = await fetchData('states.json'),
+	{ grid } = gl.programs(sl)
+
 
 let
 	paused = false,
 	last = now(),
 	frame = 0
 
-each({
+listen({
 	//mousemove: () => { },
 	//click: () => { },
 	resize: () => {
@@ -31,7 +35,7 @@ each({
 		paused = true
 		console.log('blur')
 	}
-}, (fn, ev) => window.addEventListener(ev, fn))
+})
 
 function draw() {
 	if (paused)
@@ -48,13 +52,14 @@ function draw() {
 	next(draw)
 }
 
+const title = document.title
 function fps() {
-	document.title = frame.toString()
+	document.title = `${title} - ${frame}`
 	frame = 0
 }
 
 trigger('resize')
 
-wglc.quad()
+gl.quad()
 next(draw)
 fps.every(1)

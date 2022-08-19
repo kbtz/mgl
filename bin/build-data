@@ -1,10 +1,10 @@
 #!/bin/bash
-CWD=${BASH_SOURCE%/*}/.git
+CWD=`realpath ${BASH_SOURCE%/*}/..`
 CDN=https://naciscdn.org/naturalearth/10m/cultural
 COUNTRIES=ne_10m_admin_0_countries
 STATES=ne_10m_admin_1_states_provinces
 
-cd $CWD; mkdir -p build-data; cd build-data
+cd $CWD/.git; mkdir -p built-data; cd built-data
 rm country.json state.json map-data.json 2> /dev/null
 set -e
 
@@ -20,7 +20,7 @@ npx mapshaper -i ${STATES}/${STATES}.shp snap \
 	-filter-fields code,name \
 	-filter 'code === "BRA"' \
 	-dissolve code target=state copy-fields=code,name + name=country \
-	-o map-data.json format=topojson bbox force target=country,state
+	-o $CWD/pub/states.json format=topojson bbox force target=country,state
 
 # TODO split country states
 #[ -d states ] || {
