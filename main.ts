@@ -1,19 +1,12 @@
 import 'mgl/util'
-import 'npm/vite-tsconfig-paths'
 import { WGL } from 'wgl'
-
-//import { feature, patterson } from 'geo'
-//console.log(feature)
-//debugger
-
 
 const
 	el = select('canvas')!,
 	gl = new WGL(el),
-	sl = await fetchText('sample.glsl'),
-	gd = await fetchData('states.json'),
+	sl = await fetchText('/sample.glsl'),
+	gd = await fetchData('/states.json'),
 	{ grid } = gl.programs(sl)
-
 
 let
 	paused = false,
