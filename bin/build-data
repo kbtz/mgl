@@ -1,26 +1,29 @@
 #!/bin/bash
-CWD=`realpath ${BASH_SOURCE%/*}/..`
+OWD=$PWD
+CWD=`realpath ${BASH_SOURCE%/*}`
 CDN=https://naciscdn.org/naturalearth/10m/cultural
 COUNTRIES=ne_10m_admin_0_countries
 STATES=ne_10m_admin_1_states_provinces
 
-cd $CWD/.git; mkdir -p built-data; cd built-data
-rm country.json state.json map-data.json 2> /dev/null
+mkdir -p $CWD/built-data; cd $CWD/built-data
 set -e
 
-[ -d ${STATES} ] || {
-	[ -f ${STATES}.zip ] || curl -O ${CDN}/${STATES}.zip
-	unzip -od ${STATES} ${STATES}.zip
+[ -d $STATES ] || {
+	[ -f $STATES.zip ] || curl -O $CDN/$STATES.zip
+	unzip -od $STATES $STATES.zip
 }
 
-npx mapshaper -i ${STATES}/${STATES}.shp snap \
-	-simplify weighted 20% \
+npx mapshaper -i $STATES/$STATES.shp snap \
+	-simplify weighted 10% \
 	-rename-layers state \
 	-rename-fields code=adm0_a3 \
-	-filter-fields code,name \
-	-filter 'code === "BRA"' \
-	-dissolve code target=state copy-fields=code,name + name=country \
-	-o $CWD/pub/states.json format=topojson bbox force target=country,state
+	-filter-fields code,name,postal \
+	-filter 'code == "BRA"' \
+	-dissolve code target=state copy-fields=code + name=country \
+	-clean \
+	-o $CWD/../pub/states.json format=topojson bbox force target=country,state
+
+cd $OWD
 
 # TODO split country states
 #[ -d states ] || {
