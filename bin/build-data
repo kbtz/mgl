@@ -18,12 +18,12 @@ npx mapshaper -i $STATES/$STATES.shp snap \
 	-rename-layers state \
 	-rename-fields code=adm0_a3 \
 	-filter-fields code,name,postal \
-	-filter 'code == "BRA"' \
 	-dissolve code target=state copy-fields=code + name=country \
 	-clean \
 	-o $CWD/../pub/states.json format=topojson bbox force target=country,state
 
 cd $OWD
 
+#-filter 'code == "BRA"' \
 # TODO split country states
 #[ -d states ] || {
