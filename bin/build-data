@@ -14,7 +14,7 @@ set -e
 }
 
 npx mapshaper -i $STATES/$STATES.shp snap \
-	-simplify weighted 10% \
+	-simplify weighted 20% \
 	-rename-layers state \
 	-rename-fields code=adm0_a3 \
 	-filter-fields code,name,postal \

@@ -7,11 +7,12 @@ const
 	gl = new WGL(el),
 	sl = await fetchText('/sample.glsl'),
 	gd = await fetchData('/states.json') as Ɐ,
-	{ grid } = gl.programs(sl)
+	{ triangles, lines } = prepare(gd, gd.objects.country),
+	{ grid } = gl.programs(sl),
+	title = document.title
 
 let
-	triangles = [], lines = [],
-	dragging: ԗ = null,
+	dragging: ꭖ[] = null,
 	paused = false,
 	last = now(),
 	frame = 0
@@ -27,17 +28,16 @@ listen({
 			? LINES
 			: TRIANGLES
 	},
-	mousedown: ({ clientX, clientY }) => dragging = [clientX, clientY],
+	mousedown: ({ clientX, clientY }) => dragging = [clientX, clientY, ...grid.uniforms.P],
 	mouseup: () => dragging = null,
 	mousemove: ({ clientX, clientY }) => {
 		if (!dragging) return
+
 		const
-			[x, y] = dragging,
-			[X, Y] = grid.uniforms.P,
+			[x, y, X, Y] = dragging,
 			scale = 500
 
-		grid.uniforms.P = [(clientX - x) / scale, (clientY - y) / scale]
-		//console.log(grid.uniforms.P)
+		grid.uniforms.P = [X + (x - clientX) / -scale, Y + (y - clientY) / scale]
 	},
 	resize: () => {
 		Object.assign(el, el.size(true))
@@ -50,8 +50,24 @@ listen({
 	blur: () => {
 		paused = true
 		document.body.classList.add('paused')
+	},
+	load: () => {
+		if (grid) {
+		}
+		else {
+			debugger
+		}
+	},
+	beforeunload: () => {
+		localStorage.setItem('uniforms', JSON.stringify(grid.uniforms))
 	}
 })
+
+Object.assign(
+	grid.uniforms,
+	{ Z: .5, P: [0, 0] },
+	JSON.parse(localStorage.getItem('uniforms')),
+)
 
 function draw() {
 	if (paused)
@@ -76,20 +92,10 @@ function draw() {
 	//paused = true
 }
 
-const
-	title = document.title,
-	data = prepare(gd, gd.objects.country)
-
-triangles = data.triangles
-lines = data.lines
-
 function fps() {
 	document.title = `${title} - ${frame}`
 	frame = 0
 }
-
-grid.uniforms.Z = .5
-grid.uniforms.P = [0, 0]
 
 gl.context.lineWidth(1)
 grid.data([...triangles, ...lines], 2)
